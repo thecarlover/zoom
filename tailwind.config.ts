@@ -24,6 +24,10 @@ const config = {
           1:'#1C1F2E',
           2: '#161925',
         },
+        MediumSlateBlue:{
+          1:'#8e50f1',
+
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

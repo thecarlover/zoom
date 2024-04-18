@@ -17,11 +17,11 @@ export const SidebarLinks=[
     {
         label:'Recordings',
         route:'/recordings',
-        imgUrl:'/icons/Video.svg'
+        imgUrl:'/icons/recordings.svg'
     },
     {
         label:'Personal Room',
-        route:'/personalroom',
-        imgUrl:'/icons/Personal.svg'
+        route:'/personal-room',
+        imgUrl:'/icons/add-personal.svg'
     },
 ]
