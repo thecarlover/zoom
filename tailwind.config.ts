@@ -1,3 +1,4 @@
+import { Maiden_Orange } from "next/font/google"
 import type { Config } from "tailwindcss"
 
 const config = {
@@ -20,6 +21,10 @@ const config = {
     extend: {
 
       colors: {
+
+        blue: {
+          1: '#0E78F9',
+        },
         dark:{
           1:'#1C1F2E',
           2: '#161925',
@@ -27,6 +32,17 @@ const config = {
         MediumSlateBlue:{
           1:'#8e50f1',
 
+        },
+
+        orange:{
+          1:'#FF742E',
+        },
+
+        purple: {
+          1: '#830EF9',
+        },
+        yellow: {
+          1: '#F9A90E',
         },
       },
       backgroundImage:{
