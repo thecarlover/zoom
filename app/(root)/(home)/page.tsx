@@ -5,7 +5,9 @@ const Home = () => {
 
   const now=new Date();
 
-  const time=now.toLocaleString('en-US',{hour:'2-digit',minute:'2-digit'});
+  // const time=now.toLocaleString('en-US',{hour:'2-digit',minute:'2-digit'});
+  const time = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit'});
+
 
   const date=(new Intl.DateTimeFormat('en-US',{
     dateStyle:'full'
