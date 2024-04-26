@@ -3,6 +3,11 @@ import Image from "next/image"
 import MeetingModal from "./MeetingModal"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useUser } from "@clerk/nextjs"
+import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk"
+import {useToast} from "@/components/ui/use-toast"
+
+
 
 
 const MeetingTypeList = () => {
@@ -12,8 +17,67 @@ const MeetingTypeList = () => {
     
     const [meetingState,setMeetingState] = useState<'isScheduleMeeting' | 'isJoiningMeeting' | 'isInstantMeeting' | undefined>()
 
+    const {user}=useUser();
 
-    const createMeeting=()=>{
+    const client = useStreamVideoClient();
+    const [values,setValues]=useState({
+       datetime:new Date(),
+       description:'',
+       link:''
+
+    })
+
+    const [callDetails,setCallDetails]=useState<Call>()
+    const {toast} = useToast();
+    
+
+    const createMeeting=async ()=>{
+        if(!client||!user) return;
+
+        try{
+
+            if(!values.datetime) {
+                toast({
+                    title:"Please select a date and time"})
+                    return;
+                   
+                }
+            
+            const id = crypto.randomUUID();
+            const call= client.call('default',id);
+
+            if(!call) throw new Error('Call not created');
+
+            const startsAt= values.datetime.toISOString()||new Date(Date.now()).toISOString();
+            const description=values.description||'Instant meeting';
+
+
+            await call.getOrCreate({
+                data:{
+                    starts_at:startsAt,
+                    custom:{
+                        description,
+                        
+                    }
+                }
+
+            })
+            setCallDetails(call);
+
+            if(!values.description){
+                router.push(`/meeting/${call.id}`)
+            }
+            toast({title:"Meeting Created"})
+        }
+        catch(error)
+        {
+            console.log(error);
+            toast({
+                title:'Failed to Create Meeting',
+               
+            })
+        }
+
         
     }
 
